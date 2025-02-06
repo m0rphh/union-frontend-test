@@ -40,7 +40,7 @@ const LeasingForm = () => {
     },
   });
   const { handleSubmit, setValue } = methods;
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
 
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
