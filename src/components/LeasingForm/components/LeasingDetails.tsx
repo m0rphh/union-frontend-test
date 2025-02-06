@@ -45,6 +45,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
               }
               className="text-input"
             >
+              <option value={undefined}></option> // This is the default value to prevent selecting first item by default
               <option value="Car">Car</option>
               <option value="Apartment">Apartment</option>
               <option value="Equipment">Equipment</option>
@@ -61,7 +62,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
         control={control}
         render={({ field }) => (
           <>
-            <input {...field} className="text-input" placeholder="" />
+            <input {...field} disabled className="text-input" placeholder="Product Model" />
             <p className="text-red-500 text-sm text-left">
               {errors.productModel?.message?.toString()}
             </p>
