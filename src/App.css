@@ -1,0 +1,61 @@
+#root {
+  max-width: 1280px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  @apply bg-slate-600 flex flex-col justify-center items-center;
+}
+
+form {
+  @apply w-full max-w-md;
+}
+
+label {
+  @apply block text-left text-gray-600 text-sm/6;
+}
+
+.text-input {
+  @apply block min-w-0 grow py-1.5 pr-3 pl-2 text-base border-2 border-solid rounded-md border-gray-300 text-gray-900  placeholder:text-gray-400 focus:outline-none sm:text-sm/6;
+}
+
+.submit-button {
+  max-width: max-content;
+  @apply mt-2 uppercase bg-slate-600 p-2 text-white rounded-md ;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
