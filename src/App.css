@@ -21,7 +21,7 @@ label {
 
 .submit-button {
   max-width: max-content;
-  @apply mt-2 uppercase bg-slate-600 p-2 text-white rounded-md ;
+  @apply mt-2 uppercase bg-slate-600 p-2 text-white rounded-md;
 }
 
 .logo {

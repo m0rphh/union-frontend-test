@@ -1,4 +1,4 @@
-import { Controller, Control, FieldErrors } from "react-hook-form";
+import { Controller,  useFormContext } from "react-hook-form";
 
 interface Country {
   name: {
@@ -8,26 +8,18 @@ interface Country {
 }
 
 interface PersonalInformationStepProps {
-  control: Control<{
-    fullName: string;
-    email: string;
-    phone: string;
-    dob: string;
-    country: string;
-  }>;
-  errors: FieldErrors;
   countries: Country[];
-  trigger: (name?: string | string[]) => Promise<boolean>;
   nextStep: () => void;
 }
 
 const PersonalInformationStep: React.FC<PersonalInformationStepProps> = ({
-  control,
-  errors,
   countries,
-  trigger,
   nextStep,
-}) => (
+}) => {
+  const methods = useFormContext(); // Get access to the form context
+  const { control, formState, trigger } = methods;
+  const { errors } = formState;
+  return(
   <>
     <label className="text-left mt-2 mb-1">Full Name</label>
     <Controller
@@ -127,10 +119,10 @@ const PersonalInformationStep: React.FC<PersonalInformationStepProps> = ({
     <p className="text-red-500 text-sm text-left">
       {errors.country?.message?.toString()}
     </p>
-    <button type="button" onClick={nextStep} className="submit-button">
+    <button type="button" onClick={nextStep} className="submit-button ml-auto mr-auto">
       Next
     </button>
   </>
-);
+)};
 
 export default PersonalInformationStep;
