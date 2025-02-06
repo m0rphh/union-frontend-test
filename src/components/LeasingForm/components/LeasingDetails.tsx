@@ -14,7 +14,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
 }) => {
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const methods = useFormContext();
-  const { control, formState, trigger } = methods;
+  const { control, formState, trigger, setValue } = methods;
   const { errors } = formState || {};
   const handleNextStep = async () => {
     const isStepValid = await trigger([
@@ -25,7 +25,6 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
     ]);
     if (isStepValid) nextStep();
   };
-
   return (
     <>
       <label>Product Type</label>
@@ -78,8 +77,9 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
             <input
               {...field}
               onChange={(e) => {
-                field.onChange(e);
+                setValue("leaseDuration", Number(e.target.value)); // For some reason it's setting the value
                 if (Number(e.target.value) > 24) {
+                  // as a string, so we need to convert it to a number
                   setShowAdditionalFields(true);
                 } else {
                   setShowAdditionalFields(false);
@@ -100,8 +100,18 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
         control={control}
         render={({ field }) => (
           <>
-            <input {...field} type="number" className="text-input" />
-            <p className="input-error">{errors.monthlyBudget?.toString()}</p>
+            <input
+              {...field}
+              onChange={(e) =>
+                setValue("monthlyBudget", Number(e.target.value))
+              }
+              onBlur={() => trigger(field.name)}
+              type="number"
+              className="text-input"
+            />
+            <p className="input-error">
+              {errors.monthlyBudget?.message?.toString()}
+            </p>
           </>
         )}
       />
@@ -126,7 +136,14 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
             control={control}
             render={({ field }) => (
               <>
-                <input {...field} type="number" className="text-input" />
+                <input
+                  {...field}
+                  onChange={(e) =>
+                    setValue("annualIncome", Number(e.target.value))
+                  }
+                  type="number"
+                  className="text-input"
+                />
                 <p className="input-error">
                   {errors.annualIncome?.message?.toString()}
                 </p>
@@ -142,7 +159,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
         <button
           type="button"
           onClick={handleNextStep}
-          className="submit-button "
+          className="submit-button"
         >
           Next
         </button>
