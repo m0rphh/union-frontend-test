@@ -14,8 +14,17 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
 }) => {
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
   const methods = useFormContext();
-  const { control, formState } = methods;
+  const { control, formState, trigger } = methods;
   const { errors } = formState || {};
+  const handleNextStep = async () => {
+    const isStepValid = await trigger([
+      "productType",
+      "productModel",
+      "leaseDuration",
+      "monthlyBudget",
+    ]);
+    if (isStepValid) nextStep();
+  };
 
   return (
     <>
@@ -41,7 +50,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
               <option value="Apartment">Apartment</option>
               <option value="Equipment">Equipment</option>
             </select>
-            <p className="text-red-500">
+            <p className="text-red-500 text-sm text-left">
               {errors.productType?.message?.toString()}
             </p>
           </>
@@ -54,7 +63,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
         render={({ field }) => (
           <>
             <input {...field} className="text-input" placeholder="" />
-            <p className="text-red-500">
+            <p className="text-red-500 text-sm text-left">
               {errors.productModel?.message?.toString()}
             </p>
           </>
@@ -79,7 +88,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
               type="number"
               className="text-input"
             />
-            <p className="text-red-500">
+            <p className="input-error">
               {errors.leaseDuration?.message?.toString()}
             </p>
           </>
@@ -92,9 +101,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
         render={({ field }) => (
           <>
             <input {...field} type="number" className="text-input" />
-            <p className="text-red-500">
-              {errors.monthlyBudget?.toString()}
-            </p>
+            <p className="input-error">{errors.monthlyBudget?.toString()}</p>
           </>
         )}
       />
@@ -107,7 +114,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
             render={({ field }) => (
               <>
                 <input {...field} className="text-input" />
-                <p className="text-red-500">
+                <p className="input-error">
                   {errors.employerName?.message?.toString()}
                 </p>
               </>
@@ -120,7 +127,7 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
             render={({ field }) => (
               <>
                 <input {...field} type="number" className="text-input" />
-                <p className="text-red-500">
+                <p className="input-error">
                   {errors.annualIncome?.message?.toString()}
                 </p>
               </>
@@ -132,7 +139,11 @@ const LeaseDetails: React.FC<LeaseDetailsProps> = ({
         <button type="button" onClick={prevStep} className="submit-button">
           Previous
         </button>
-        <button type="button" onClick={nextStep} className="submit-button ">
+        <button
+          type="button"
+          onClick={handleNextStep}
+          className="submit-button "
+        >
           Next
         </button>
       </div>

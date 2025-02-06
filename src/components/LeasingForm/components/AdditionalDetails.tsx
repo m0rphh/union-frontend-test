@@ -24,7 +24,7 @@ const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({ prevStep }) => {
               name={field.name}
               ref={field.ref}
             />
-            <p className="text-red-500">
+            <p className="input-error">
               {errors.document?.message?.toString()}
             </p>
           </>
@@ -45,7 +45,7 @@ const AdditionalDetails: React.FC<AdditionalDetailsProps> = ({ prevStep }) => {
               />
               I agree to the terms
             </label>
-            <p className="text-red-500">{errors?.terms?.message?.toString()}</p>
+            <p className="input-error">{errors?.terms?.message?.toString()}</p>
           </>
         )}
       />

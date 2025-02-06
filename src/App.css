@@ -24,6 +24,11 @@ label {
   @apply mt-2 uppercase bg-slate-600 p-2 text-white rounded-md;
 }
 
+.input-error {
+  font-size: 12px;
+  @apply text-red-600;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

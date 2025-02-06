@@ -39,8 +39,7 @@ const LeasingForm = () => {
       annualIncome: undefined,
     },
   });
-  const { handleSubmit, setValue, formState } = methods;
-  const { errors } = formState;
+  const { handleSubmit, setValue } = methods;
   const [step, setStep] = useState(1);
 
   const onSubmit = (data: FormData) => {
@@ -48,11 +47,7 @@ const LeasingForm = () => {
     alert("Application submitted successfully!");
   };
 
-  const nextStep = () => {
-    // const isStepValid = await trigger();
-    if (Object.keys(errors).length === 0) setStep((prev) => prev + 1);
-  };
-
+  const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
   const { data: countries } = useCountries();
