@@ -29,6 +29,7 @@ const PersonalInformationStep: React.FC<PersonalInformationStepProps> = ({
     ]);
     if (isStepValid) nextStep();
   };
+
   return (
     <>
       <label className="text-left mt-2 mb-1">Full Name</label>
@@ -108,15 +109,18 @@ const PersonalInformationStep: React.FC<PersonalInformationStepProps> = ({
         control={control}
         render={({ field }) => (
           <select {...field} className="text-input">
-            {countries?.map((country) => (
-              <option
-                className="flex align-center"
-                key={country.name?.common}
-                value={country.name?.common}
-              >
-                {`${country.flag} ${country.name.common}`}
-              </option>
-            ))}
+            <>
+              <option>Select Country</option>
+              {countries?.map((country) => (
+                <option
+                  className="flex align-center"
+                  key={country.name?.common}
+                  value={country.name?.common}
+                >
+                  {`${country.flag} ${country.name.common}`}
+                </option>
+              ))}
+            </>
           </select>
         )}
       />
